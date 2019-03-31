@@ -50,4 +50,13 @@ public class SimilarityFinderTest {
         double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(similarity, is(0.6d));
     }
+
+    @Test
+    public void isReturnedAmountOfCallValueForSimillarSequences() {
+        int[] seq1 = new int[] {1, 2, 3};
+        int[] seq2 = new int[] {1, 2};
+        SequenceSearcherDoubler.methodCallCounter = 0;
+        double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        assertThat(3, is(SequenceSearcherDoubler.methodCallCounter));
+    }
 }
