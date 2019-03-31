@@ -34,4 +34,20 @@ public class SimilarityFinderTest {
         double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(similarity, is(1d));
     }
+
+    @Test
+    public void isReturnedZeroForDifferentSequences() {
+        int[] seq1 = new int[] {4, 5, 6};
+        int[] seq2 = new int[] {1, 2, 3};
+        double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        assertThat(similarity, is(0d));
+    }
+
+    @Test
+    public void isReturnedIntersectionValueForSimillarSequences() {
+        int[] seq1 = new int[] {1, 2, 3, 6};
+        int[] seq2 = new int[] {1, 2, 3, 7};
+        double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        assertThat(similarity, is(0.6d));
+    }
 }
