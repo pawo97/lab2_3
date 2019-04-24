@@ -15,6 +15,7 @@ public class SimilarityFinderTest {
     public void isReturnedOneIfSequencesAreEmpty() {
         int[] seq1 = new int[0];
         int[] seq2 = new int[0];
+
         double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(similarity, is(1d));
     }
@@ -23,14 +24,25 @@ public class SimilarityFinderTest {
     public void isReturnedZeroIfOneOfSequencesIsEmpty() {
         int[] seq1 = new int[0];
         int[] seq2 = new int[] {1, 2, 3};
+
+        SequenceSearcherDoubler.suspectValues.add(false);
+        SequenceSearcherDoubler.suspectValues.add(false);
+        SequenceSearcherDoubler.suspectValues.add(false);
+
         double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(similarity, is(0d));
+
     }
 
     @Test
     public void isReturnedOneIfSequencesAreTheSame() {
         int[] seq1 = new int[] {1, 2, 3};
         int[] seq2 = new int[] {1, 2, 3};
+
+        SequenceSearcherDoubler.suspectValues.add(true);
+        SequenceSearcherDoubler.suspectValues.add(true);
+        SequenceSearcherDoubler.suspectValues.add(true);
+
         double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(similarity, is(1d));
     }
@@ -39,6 +51,11 @@ public class SimilarityFinderTest {
     public void isReturnedZeroForDifferentSequences() {
         int[] seq1 = new int[] {4, 5, 6};
         int[] seq2 = new int[] {1, 2, 3};
+
+        SequenceSearcherDoubler.suspectValues.add(false);
+        SequenceSearcherDoubler.suspectValues.add(false);
+        SequenceSearcherDoubler.suspectValues.add(false);
+
         double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(similarity, is(0d));
     }
@@ -47,6 +64,12 @@ public class SimilarityFinderTest {
     public void isReturnedIntersectionValueForSimillarSequences() {
         int[] seq1 = new int[] {1, 2, 3, 6};
         int[] seq2 = new int[] {1, 2, 3, 7};
+
+        SequenceSearcherDoubler.suspectValues.add(true);
+        SequenceSearcherDoubler.suspectValues.add(true);
+        SequenceSearcherDoubler.suspectValues.add(true);
+        SequenceSearcherDoubler.suspectValues.add(false);
+
         double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(similarity, is(0.6d));
     }
@@ -54,7 +77,8 @@ public class SimilarityFinderTest {
     @Test
     public void isReturnedAmountOfCallValueForSimillarSequences() {
         int[] seq1 = new int[] {1, 2, 3};
-        int[] seq2 = new int[] {1, 2};
+        int[] seq2 = new int[] {1, 4};
+
         SequenceSearcherDoubler.methodCallCounter = 0;
         double similarity = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(3, is(SequenceSearcherDoubler.methodCallCounter));
