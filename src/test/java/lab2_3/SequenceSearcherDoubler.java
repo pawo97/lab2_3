@@ -11,7 +11,6 @@ public class SequenceSearcherDoubler implements SequenceSearcher {
     public static int methodCallCounter = 0;
     public static Vector<Boolean> suspectValues = new Vector<>();
     public static int vectorSize;
-    public static int keyToSearch;
 
     @Override
     public SearchResult search(int key, int[] seq) {
